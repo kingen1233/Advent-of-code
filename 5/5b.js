@@ -13,7 +13,7 @@ data.forEach(e => {
 boardingList.forEach(pass => {
     findRow(pass)
     findColumn(pass)
-    //TODO: Refactor find row and col into one method, should be ez    
+    //TODO: Refactor find row and col into one method  
     setSeatId(pass)
 })
 
