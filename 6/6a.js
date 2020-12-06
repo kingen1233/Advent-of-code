@@ -25,11 +25,7 @@ groups.forEach((g) => {
 console.log(sum)
 
 function yesPerGroup(group){
-    let uniqueChar = []
-    for(let i = 0; i < group.length; i++){
-        if(!uniqueChar.includes(group.charAt(i))){
-            uniqueChar.push(group.charAt(i))
-        }
-    }
-    return uniqueChar.length
+    console.log(group)
+    let set = new Set(group)
+    return  set.size
 }
