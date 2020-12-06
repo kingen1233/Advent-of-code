@@ -18,14 +18,12 @@ data.forEach(line=> {
 
 //Calculate yes per group
 let sum = 0
-groups.forEach((g) => {
-    sum  += yesPerGroup(g)    
-})
-
+for(const g of groups){
+    sum  += yesPerGroup(g)   
+}
 console.log(sum)
 
 function yesPerGroup(group){
-    console.log(group)
     let set = new Set(group)
     return  set.size
 }
