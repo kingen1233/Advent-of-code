@@ -51,10 +51,9 @@ function findMatchingAnswer(group, index){
     })
 
     // Gets values from map to calculate how many matching answers the group has
-    const itr = letterOccurance.entries()
-    for(const entry of itr){
+    for(const [key, value] of letterOccurance){
         // If the letter appeared as many times as there are group members (if everyone answered yes)
-        if(entry[1] === yesNeeded){
+        if(value === yesNeeded){
             sum += 1 
         }
     }    
