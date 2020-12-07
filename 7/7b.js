@@ -6,9 +6,7 @@ const targetBag = 'shiny gold'
 let temp = []
 let result = []
 for (let d of data) {
-
     result.push(d.split(/bags|bag/))
-
 }
 // trim away unnecessary characters, make array easier to handle
 let index = 0
@@ -44,7 +42,7 @@ for (let row of result) {
     index++;
 }
 result = temp
-//console.log(result)
+
 // Map each bag to what it can contain
 let bagMap = new Map()
 for (const row of result) {
@@ -55,8 +53,8 @@ for (const row of result) {
     }
     bagMap.set(key, bagContain)
 }
-//console.log(bagMap)
 
+// Calculate the amount of bags in one golden bag
 const shinyGoldBag = bagMap.get('shiny gold')
 let amntBags = 0;
 evaluateBag(shinyGoldBag)
@@ -68,5 +66,4 @@ function evaluateBag(bagList){
         evaluateBag(bagMap.get(bag))
         amntBags++     
     }
-
 }
