@@ -34,8 +34,7 @@ for (let row of result) {
             else{
             innerTemp[inner] = e
             inner++
-            }
-            
+            }            
         }
     }
     temp[index] = innerTemp

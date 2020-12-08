@@ -53,7 +53,7 @@ for (const [key, value] of bagMap) {
 }
 //182 too high
 console.timeEnd('Fuck')
-console.log(containsTarget)
+console.log(bagMap)
 
 function evaluateBag(key, value) {
     
