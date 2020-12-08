@@ -8,7 +8,7 @@ for(const instr of data){
     backupList[index] = instr.split(' ')
     index++;
 }
-// Create bacuplist to restore original list from after editing
+// Create bacuplist to restore original list from after editing it
 backupList = objectify(backupList)
 let instrList = backupList.map(a => ({...a}));
 
@@ -77,7 +77,9 @@ function objectify(instrList){
 
     let temp = []
     for(let i = 0; i < instrList.length; i++){
-        temp[i] = {command: instrList[i][0], value: instrList[i][1]}
+        command = instrList[i][0]
+        value = instrList[i][1]
+        temp[i] = {command, value}
     }
     instrList = temp
     return instrList
