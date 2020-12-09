@@ -6,11 +6,6 @@ let invalidNumber = 0
 
 console.time("test")
 
-const set = new Set()
-for(const d of data){
-    set.add(parseInt(d))
-}
-
 for(let i = preamble; i < data.length; i++){
     invalidNumber = findImpossibleSum(i)
 
