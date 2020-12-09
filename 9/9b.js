@@ -4,64 +4,85 @@ const preamble = 25
 let found = false
 let invalidNumber = 0
 
-
-for(let i = preamble; i < data.length; i++){
+let indexMap = new Map
+let dupeMap = new Map
+// Map all inputs, value -> their index 
+for (let i = 0; i < data.length; i++) {
+    if (indexMap.has(parseInt(data[i]))) {
+        dupeMap.set(parseInt(data[i]), i)
+    }
+    else {
+        indexMap.set(parseInt(data[i]), i)
+    }
+}
+console.time("test")
+//Find impossible number
+for (let i = preamble; i < data.length; i++) {
     invalidNumber = findImpossibleSum(i)
 
-    if(!found){
+    if (!found) {
         break;
+    } else {
+        found = false;
     }
-    found = false;
 }
 
-console.log('the invalid number is', invalidNumber)
+// Find numbers that adds up
 let numberSet = null
 let startIndex = 0;
-while(numberSet == null){    
-    numberSet = findContiguousSet(invalidNumber,startIndex)
+while (numberSet == null) {
+    numberSet = findContiguousSet(invalidNumber, startIndex)
     startIndex++
 }
 numberSet.sort()
-let weaknessSum = parseInt(numberSet[0]) + parseInt(numberSet[numberSet.length-1])
+let weaknessSum = parseInt(numberSet[0]) + parseInt(numberSet[numberSet.length - 1])
+console.timeEnd('test')
 console.log(weaknessSum);
 
 // Find first set of contiguous numbers, that add up to sum
-function findContiguousSet(sum, startIndex){
+function findContiguousSet(sum, startIndex) {
     localSum = 0
     let addedNbrs = []
-    for(let i = startIndex; i < data.length; i++){
+    for (let i = startIndex; i < data.length; i++) {
         addedNbrs.push(data[i])
         localSum += parseInt(data[i])
-        if(localSum == sum){
-            console.log(sum,'found in set', addedNbrs)
+        if (localSum == sum) {
             return addedNbrs
-        }     
-        else if(localSum > sum){
+        }
+        else if (localSum > sum) {
             return null
-        }   
+        }
     }
 }
-    
 
 // For one number from the data array, checks if any other two numbers, from index (nextIndex-25) -> nextIndex, adds up to this number
 function findImpossibleSum(nextIndex) {
     const sum = data[nextIndex]
-    for (let i = nextIndex - preamble; i < nextIndex; i++) {
+    let startIndex = nextIndex - preamble
+    for (let i = startIndex; i < nextIndex; i++) {
         const first = data[i]
-        if (!found) {
-            for (let j = nextIndex - preamble; j < nextIndex; j++) {
-                const second = data[j]
-                if (first == second) {
-                }
-                else if (parseInt(second) + parseInt(first) == sum) {
-                    found = true;
-                    break;
-                }
-            }
+        let second = sum - first
+        let indexOk2 = false
+        if (dupeMap.has(second)) indexOk2 = getIndexSpan(dupeMap.get(second), startIndex, nextIndex)
+
+        let indexOk = getIndexSpan(indexMap.get(second), startIndex, nextIndex)
+        if (first == second || second < 0) {
+            continue
+        }
+        else if (indexMap.has(second) && indexOk || indexOk2) {
+            found = true
+            return
         }
     }
     if (!found) {
         return sum
     }
 
+}
+
+function getIndexSpan(index, startIndex, nextIndex) {
+    if (index > startIndex && index < nextIndex) {
+        return true
+    }
+    return false
 }
